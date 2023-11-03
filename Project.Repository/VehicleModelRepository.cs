@@ -8,7 +8,9 @@ namespace Project.Repository
     {
         public VehicleModelRepository(VehicleDbContext db) : base(db)
         {
+
         }
+
 
         public async Task<List<VehicleModelEntity>> GetAllWithVehicleMakes()
         {
@@ -19,7 +21,7 @@ namespace Project.Repository
             return listAll;
         }
 
-        public async Task<VehicleModelEntity> GetWithVehicleMakeById(int Id)
+        public async Task<VehicleModelEntity> GetVehicleModelWithVehicleMakeById(int Id)
         {
            var entity = await _db.VehicleModels
                 .Include(a=> a.VehicleMake)

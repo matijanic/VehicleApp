@@ -10,7 +10,7 @@ namespace Project.Repository.Common
     public interface IVehicleMakeRepository : IGenericRepository<VehicleMakeEntity>
     {
         Task<List<VehicleMakeEntity>> GetAllDetailsWithModelsAsync();
-        Task<VehicleMakeEntity> GetWithModelsByIdAsync(int Id);
+        Task<VehicleMakeEntity> GetVehicleMakeWithModelById(int Id);
 
     }
 

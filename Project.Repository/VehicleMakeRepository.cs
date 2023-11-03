@@ -19,13 +19,16 @@ namespace Project.Repository
 
         public async Task<List<VehicleMakeEntity>> GetAllDetailsWithModelsAsync()
         {
-           var allList = await _db.VehicleMakes
-                .Include(a=>a.Models)
+            var allList = await _db.VehicleMakes
+                .Include(a => a.Models) 
                 .ToListAsync();
-        return allList;
+
+            return allList;
         }
 
-        public async Task<VehicleMakeEntity> GetWithModelsByIdAsync(int Id)
+
+
+        public async Task<VehicleMakeEntity> GetVehicleMakeWithModelById(int Id)
         {
             var entity = await _db.VehicleMakes
                 .Include(a=> a.Models)

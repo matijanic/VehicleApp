@@ -9,5 +9,6 @@ namespace Project.Model
         public string Abrv { get; set;}
 
         public int MakeId {  get; set; }
+        public VehicleMakeModel VehicleMake { get; set; }
     }
 }

@@ -13,33 +13,32 @@ namespace Project.Repository
         {
             _db = db;
         }
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _db.Set<TEntity>().AddAsync(entity);
             await _db.SaveChangesAsync();
-            return entity;
+            
         }
 
         public async Task DeleteAsync(int id)
         {
-           var entity = await GetByIdAsync(id);
-           _db.Set<TEntity>().Remove(entity);
 
-            await _db.SaveChangesAsync();
+           var entity = await GetByIdAsync(id);
+           _db.Remove(entity);
 
 
         }
 
-        public async Task<bool> Exists(int id)
+        public async Task<TEntity> Exists(int id)
         {
             var entity = await _db.Set<TEntity>().FindAsync(id);
 
             if (entity == null)
             {
-                return false;
+                return null;
             }
 
-            return true;
+            return entity;
         }
 
         public  async Task<List<TEntity>> GetAllAsync()
@@ -60,7 +59,7 @@ namespace Project.Repository
         }
         
 
-        async Task IGenericRepository<TEntity>.UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             _db.Set<TEntity>().Update(entity);
             await _db.SaveChangesAsync();

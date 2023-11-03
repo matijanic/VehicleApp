@@ -4,8 +4,9 @@ namespace Project.Repository.Common
 {
     public interface IVehicleModelRepository : IGenericRepository<VehicleModelEntity>
     {
+       
         Task<List<VehicleModelEntity>> GetAllWithVehicleMakes();
-        Task<VehicleModelEntity> GetWithVehicleMakeById(int Id);
+        Task<VehicleModelEntity> GetVehicleModelWithVehicleMakeById(int Id);
     }
 
   

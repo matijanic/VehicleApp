@@ -13,5 +13,7 @@ namespace Project.Model
         public string Name { get; set; }
 
         public string Abrv {  get; set; }
+
+        public List<VehicleModelModel> Models { get; set; } = new List<VehicleModelModel>();
     }
 }
