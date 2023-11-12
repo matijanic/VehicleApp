@@ -6,6 +6,7 @@ using Project.Model;
 using Project.Model.Common;
 using Project.Service.Common;
 using Project.WebAPI.Resources;
+using Project.WebAPI.Validation;
 using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
 
 namespace Project.WebAPI.Controllers
@@ -78,7 +79,7 @@ namespace Project.WebAPI.Controllers
             {
                 if (id <= 0)
                 {
-                    return BadRequest();
+                    return BadRequest("Invalid ID");
                 }
 
                var isTrue = await _vehicleMakeService.DeleteVMake(id);
@@ -101,6 +102,7 @@ namespace Project.WebAPI.Controllers
         }
 
         [HttpPost("AddVehicleMake")]
+        [ValidateModel]
 
         public async Task<ActionResult> CreateVehicleMakeAsync([FromBody] CreateVehicleMakeResource input)
         {
@@ -121,6 +123,7 @@ namespace Project.WebAPI.Controllers
 
 
         [HttpPut("UpdateVehicleMake")]
+        [ValidateModel]
 
         public async Task<ActionResult> UpdateVehicleMake(int id, [FromBody] UpdateVehicleMakeResource entity)
         {
@@ -154,14 +157,11 @@ namespace Project.WebAPI.Controllers
             try
             {
 
-                var listAll = await _vehicleMakeService.GetAllWithModels();
-                //if(listAll.Count == 0)
-                //{
-                //    return NotFound();
-                //}
+                var listAllDomainModel = await _vehicleMakeService.GetAllWithModels();
+                
 
-                var dataResources = _mapper.Map<List<VehicleMakeWithModelsResources>>(listAll); 
-                return Ok(dataResources);
+                var dataResource = _mapper.Map<List<VehicleMakeWithModelsResources>>(listAllDomainModel); 
+                return Ok(dataResource);
                 
                 
 
@@ -172,7 +172,80 @@ namespace Project.WebAPI.Controllers
             }
         }
 
-  
+        [HttpGet("GetFilterByName")]
+
+        public async Task<ActionResult<List<VehicleMakeWithModelsResources>>> GetFilterByName([FromQuery] string? Name = null)
+        {
+            try
+            {
+                var list = await _vehicleMakeService.GetFilterByName(Name);
+
+                if(list.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<List<VehicleMakeWithModelsResources>>(list));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+           
+
+        }
+
+        [HttpGet("GetSortByName")]
+
+        public async Task <ActionResult<List<VehicleMakeResources>>> GetSortByName([FromQuery] string? Name = null, [FromQuery] bool isAscending = true)
+        {
+
+            try
+            {
+                var list = await _vehicleMakeService.GetSortByName(Name, isAscending);
+
+                if(list.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<List<VehicleMakeResources>>(list));
+                
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [HttpGet("PagingVehicleMake")]
+
+        public async Task<ActionResult<List<VehicleMakeResources>>> PagingVehiclaMakes([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
+        {
+
+            try
+            {
+                var list = await _vehicleMakeService.PagingVehicleMakes(pageNumber, pageSize);
+
+                if(list.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<List<VehicleMakeResources>>(list));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
 
 
     }

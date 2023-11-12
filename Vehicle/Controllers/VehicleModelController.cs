@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Project.Model;
+using Project.Service;
 using Project.Service.Common;
 using Project.WebAPI.Resources;
+using Project.WebAPI.Validation;
+using System.Globalization;
 
 namespace Project.WebAPI.Controllers
 {
-    [Route("api/")]
+    [Route("/api")]
     [ApiController]
     public class VehicleModelController : ControllerBase
     {
@@ -75,6 +78,7 @@ namespace Project.WebAPI.Controllers
         }
 
         [HttpPost("AddVehicleModel")]
+        [ValidateModel]
 
         public async Task<ActionResult>CreateVehicleModel([FromBody] CreateVehicleModelResource input)
         {
@@ -123,6 +127,7 @@ namespace Project.WebAPI.Controllers
         }
 
         [HttpPut("UpdateVehicleModel")]
+        [ValidateModel]
 
         public async Task<ActionResult> UpdateVehicleModel(int id, [FromBody] UpdateVehicleModelResource input)
         {
@@ -145,7 +150,108 @@ namespace Project.WebAPI.Controllers
         }
 
 
+        //GetAllModelWithVehicleMale by id
 
+        [HttpGet("GetVehicleModelWithVehicleMake/{id}")]
+
+        public async Task<IActionResult> GetVehicleModelWithVehicleMakeById(int id)
+        {
+
+            try
+            {
+                var entity = await _vehicleModelService.GetVModelWithVMakeById(id);
+
+                if (entity == null)
+                {
+                    return NotFound();
+                }
+
+
+                return Ok(_mapper.Map<VehicleModelWithVehicleMakeResource>(entity));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+           
+
+        }
+
+        [HttpGet("GetFilterByName")]
+
+        public async Task <ActionResult<List<VehicleModelWithVehicleMakeResource>>> GetFilterByName([FromQuery] string? Name = null)
+        {
+
+            try
+            {
+                var list = await _vehicleModelService.GetFilterByName(Name);
+
+                if (list == null)
+                {
+                    return NotFound();
+
+                }
+
+                return Ok(_mapper.Map<List<VehicleModelWithVehicleMakeResource>>(list));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+
+            
+            
+
+        }
+        [HttpGet("GetSortByName")]
+
+        public async Task<ActionResult<List<VehicleModelResources>>> GetSortByName (string? Name = null, bool isAscending = true)
+        {
+            try
+            {
+                var list = await _vehicleModelService.GetSortByName(Name,isAscending);
+
+                if(list.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<List<VehicleModelResources>>(list));
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("PagingVehicleMake")]
+
+        public async Task<ActionResult<List<VehicleMakeResources>>> PagingVehiclaModels([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
+        {
+
+            try
+            {
+                var list = await _vehicleModelService.PagingVehicleModels(pageNumber, pageSize);
+
+                if (list.Count == 0)
+                {
+                    return NotFound();
+                }
+
+                return Ok(_mapper.Map<List<VehicleModelResources>>(list));
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+        }
 
     }
 }

@@ -21,6 +21,7 @@ namespace Project.WebAPI.Mapping
             CreateMap<VehicleModelModel,VehicleModelResources>().ReverseMap();
             CreateMap<CreateVehicleModelResource, VehicleModelModel>().ReverseMap();
             CreateMap<UpdateVehicleModelResource, VehicleModelModel>().ReverseMap();
+            CreateMap<VehicleModelWithVehicleMakeResource,VehicleModelModel>().ReverseMap();
 
             
             

@@ -36,7 +36,7 @@ builder.Services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
 
 
 
-// CORS - Cors politika (policy) dozvole pristupa svim metodama, izvorima i zaglavljima pristup nasem serveru-- nevazno sad za projekt Vehicle
+// CORS - Cors politika (policy) dozvole pristupa svim metodama, izvorima i zaglavljima pristup nasem serveru-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());

@@ -56,6 +56,26 @@ namespace Project.Service
             return listaAllAndModels;
         }
 
+        public async Task<List<VehicleModelModel>> GetFilterByName(string? Name = null)
+        {
+            var list =await _unitOfWork.VehicleModels.GetFilterByNameAsync(Name);
+
+            
+            var newList= _mapper.Map<List<VehicleModelModel>>(list);
+
+            return newList;
+        }
+
+        public async Task<List<VehicleModelModel>> GetSortByName(string? Name = null, bool isAscending = true)
+        {
+            var list = await _unitOfWork.VehicleModels.GetSortByNameAsync(Name, isAscending);
+            
+
+            var newList=  _mapper.Map <List<VehicleModelModel>>(list);
+
+            return newList;
+        }
+
         public async Task<VehicleModelModel> GetVModelById(int id)
         {
             var entity = await _unitOfWork.VehicleModels.GetByIdAsync(id);
@@ -63,10 +83,25 @@ namespace Project.Service
             return newEntity;
         }
 
-        public async Task<VehicleModelEntity> GetVModelWithVMakeById(int id)
+        public async Task<VehicleModelModel> GetVModelWithVMakeById(int id)
         {
-            var entity = await _unitOfWork.VehicleModels.GetVehicleModelWithVehicleMakeById(id);
-            return entity;
+            var entity = await _unitOfWork.VehicleModels.GetVehicleModelWithVehicleMakeByIdAsync(id);
+
+            if(entity == null)
+            {
+                return null;
+            }
+
+            var newEntity= _mapper.Map<VehicleModelModel>(entity);
+
+            return newEntity;
+        }
+
+        public async  Task<List<VehicleModelModel>> PagingVehicleModels(int pageNumber = 1, int pageSize = 1000)
+        {
+            var list = await _unitOfWork.VehicleModels.PagingVehicleModels(pageNumber, pageSize);
+
+            return _mapper.Map<List<VehicleModelModel>>(list);
         }
 
         public async Task UpdateVModel(int id, VehicleModelModel input)
@@ -80,5 +115,7 @@ namespace Project.Service
             var updatedEntity = _mapper.Map<VehicleModelEntity>(entityToBeUpdted);
             await _unitOfWork.CommitAsync();
         }
+
+      
     }
 }

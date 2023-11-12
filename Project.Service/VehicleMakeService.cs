@@ -88,5 +88,35 @@ namespace Project.Service
             var newEntity = _mapper.Map<VehicleMakeModel>(entity);
             return newEntity;
         }
+
+        public async Task<List<VehicleMakeModel>> GetFilterByName(string? Name = null)
+        {
+
+            var list = await _unitOfWork.VehicleMakes.GetFilterByNameAsync(Name);
+
+            var newList =  _mapper.Map<List<VehicleMakeModel>>(list);
+
+            return newList;
+
+        }
+
+        public async Task<List<VehicleMakeModel>> GetSortByName(string? Name = null, bool isAscending = true)
+        {
+           
+            var list = await _unitOfWork.VehicleMakes.GetSortByNameAsync(Name, isAscending);
+
+            var newList = _mapper.Map<List<VehicleMakeModel>>(list);
+
+            return newList;
+
+        }
+
+        public async Task<List<VehicleMakeModel>> PagingVehicleMakes(int pageNumber = 1, int pageSize = 1000)
+        {
+            var list = await _unitOfWork.VehicleMakes.PagingVehicleMakesAsync(pageNumber, pageSize);
+
+            return _mapper.Map<List<VehicleMakeModel>>(list);
+
+        }
     }
 }

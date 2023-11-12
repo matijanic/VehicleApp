@@ -20,6 +20,12 @@ namespace Project.Service.Common
 
         Task <VehicleMakeModel> GetVMakeWithModelsById(int id);
 
+        Task<List<VehicleMakeModel>> GetFilterByName(string? Name = null);
+
+        Task<List<VehicleMakeModel>> GetSortByName(string? Name = null, bool isAscending = true);
+
+        Task<List<VehicleMakeModel>> PagingVehicleMakes(int pageNumber = 1, int pageSize=1000);
+
         //Task<VehicleModelEntity> Exists(int id);
 
        

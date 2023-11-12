@@ -12,6 +12,12 @@ namespace Project.Repository.Common
         Task<List<VehicleMakeEntity>> GetAllDetailsWithModelsAsync();
         Task<VehicleMakeEntity> GetVehicleMakeWithModelById(int Id);
 
+        Task <List<VehicleMakeEntity>> GetFilterByNameAsync(string? Name = null);
+
+        Task<List<VehicleMakeEntity>> GetSortByNameAsync(string? Name = null, bool isAscending = true);
+
+        Task<List<VehicleMakeEntity>> PagingVehicleMakesAsync(int pageNumber= 1, int pageSize = 1000);
+
     }
 
   

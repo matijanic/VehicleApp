@@ -8,9 +8,8 @@ namespace Project.WebAPI.Resources
 
         public string Abrv { get; set; }
 
-        public List<VehicleModelModel> Models { get; set; }  
+        public List<VehicleModelResources> Models { get; set; }  
 
-        
        
     }
 }
