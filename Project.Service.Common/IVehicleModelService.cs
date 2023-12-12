@@ -1,4 +1,5 @@
-﻿using Project.DAL;
+﻿using Project.Common;
+using Project.DAL;
 using Project.Model;
 
 namespace Project.Service.Common
@@ -19,10 +20,6 @@ namespace Project.Service.Common
 
         Task<VehicleModelModel> GetVModelWithVMakeById(int id);
 
-        Task <List<VehicleModelModel>> GetFilterByName(string? Name = null);
-
-        Task<List<VehicleModelModel>> GetSortByName(string? Name = null, bool isAscending = true);
-
-        Task<List<VehicleModelModel>> PagingVehicleModels(int pageNumber = 1, int pageSize = 1000);
+        Task<List<VehicleModelModel>> GetFiltered(QueryParameters parameters);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Project.Common;
 using Project.DAL;
 using Project.Repository.Common;
 
@@ -21,39 +22,7 @@ namespace Project.Repository
             return listAll;
         }
 
-        public async Task<List<VehicleModelEntity>> GetFilterByNameAsync(string? Name = null)
-        {
-
-            var list = _db.VehicleModels.
-                Include("VehicleMake").AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(Name))
-            {
-                list = list.Where(x => x.Name.Contains(Name));
-            }
-
-            return await list.ToListAsync();
-
-
-
-        }
-
-        public async Task<List<VehicleModelEntity>> GetSortByNameAsync(string? Name = null, bool isAscending = true)
-        {
-            var list = _db.VehicleModels.AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(Name))
-            {
-                if (Name.Equals("Name", StringComparison.OrdinalIgnoreCase))
-                {
-                    list = isAscending ? list.OrderBy(x => x.Name)
-                        : list.OrderByDescending(x => x.Name);
-                }
-
-            }
-            return await list.ToListAsync();
-        }
-
+        
         public async Task<VehicleModelEntity> GetVehicleModelWithVehicleMakeByIdAsync(int Id)
         {
             var entity = await _db.VehicleModels
@@ -63,14 +32,40 @@ namespace Project.Repository
             return entity;
         }
 
-        public async Task<List<VehicleModelEntity>> PagingVehicleModels(int pageNumber = 1, int pageSize = 1000)
+        public async Task<List<VehicleModelEntity>> GetFilteredAsync(QueryParameters parameters)
         {
-
             var list = _db.VehicleModels.AsQueryable();
 
-            var skipResults = (pageNumber - 1) * pageSize;
+            //filtering
 
-            return await list.Skip(skipResults).Take(pageSize).ToListAsync();
+            if(!string.IsNullOrWhiteSpace(parameters.FilterByName))
+            {
+                list = list.Where(x=>x.Name.Contains(parameters.FilterByName));
+            }
+
+
+            //sorting
+
+            if(!string.IsNullOrWhiteSpace(parameters.SortBy))
+            {
+                
+                if(parameters.SortBy.Contains("Name", StringComparison.OrdinalIgnoreCase))
+                {
+                    list = parameters.IsAscending.HasValue ?
+                        (parameters.IsAscending.Value ? list.OrderBy(x => x.Name) : list.OrderByDescending(x => x.Name)) :
+                        list;
+                }
+            }
+
+            //pagination
+
+            var skipResults = (parameters.PageNumber-1) * parameters.PageSize;
+            
+            return await list.Skip(skipResults).Take(parameters.PageSize).ToListAsync();
         }
+
+        
+
+       
     }
 }

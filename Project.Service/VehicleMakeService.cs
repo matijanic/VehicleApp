@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Project.Common;
 using Project.DAL;
 using Project.Model;
 using Project.Repository.Common;
@@ -89,34 +90,15 @@ namespace Project.Service
             return newEntity;
         }
 
-        public async Task<List<VehicleMakeModel>> GetFilterByName(string? Name = null)
+        public async Task<List<VehicleMakeModel>> GetFiltered(QueryParameters parameters)
         {
+            var list = await _unitOfWork.VehicleMakes.GetFilteredAsync(parameters);
 
-            var list = await _unitOfWork.VehicleMakes.GetFilterByNameAsync(Name);
+            var newlist = _mapper.Map<List<VehicleMakeModel>>(list);
 
-            var newList =  _mapper.Map<List<VehicleMakeModel>>(list);
-
-            return newList;
-
+            return newlist;
         }
 
-        public async Task<List<VehicleMakeModel>> GetSortByName(string? Name = null, bool isAscending = true)
-        {
-           
-            var list = await _unitOfWork.VehicleMakes.GetSortByNameAsync(Name, isAscending);
-
-            var newList = _mapper.Map<List<VehicleMakeModel>>(list);
-
-            return newList;
-
-        }
-
-        public async Task<List<VehicleMakeModel>> PagingVehicleMakes(int pageNumber = 1, int pageSize = 1000)
-        {
-            var list = await _unitOfWork.VehicleMakes.PagingVehicleMakesAsync(pageNumber, pageSize);
-
-            return _mapper.Map<List<VehicleMakeModel>>(list);
-
-        }
+       
     }
 }

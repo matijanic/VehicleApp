@@ -11,8 +11,8 @@ namespace Project.WebAPI.Resources
        
         
         
-        [MinLength(2, ErrorMessage = "Code has to be minimun 2 characters")]
-        [MaxLength(4, ErrorMessage = "Name has to be maximum 4 characters")]
+        [MinLength(2, ErrorMessage = "Abrv has to be minimun 2 characters")]
+        [MaxLength(4, ErrorMessage = "Abrv has to be maximum 4 characters")]
         [Required]
         public string Abrv { get; set; }
     }

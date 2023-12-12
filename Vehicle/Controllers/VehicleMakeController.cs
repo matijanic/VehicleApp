@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Project.Common;
 using Project.DAL;
 using Project.Model;
 using Project.Model.Common;
@@ -11,7 +12,7 @@ using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
 
 namespace Project.WebAPI.Controllers
 {
-    [Route("api/")]
+    [Route("/api")]
     [ApiController]
     public class VehicleMakeController : ControllerBase
     {
@@ -122,7 +123,7 @@ namespace Project.WebAPI.Controllers
         }
 
 
-        [HttpPut("UpdateVehicleMake")]
+        [HttpPut("UpdateVehicleMake/{id}")]
         [ValidateModel]
 
         public async Task<ActionResult> UpdateVehicleMake(int id, [FromBody] UpdateVehicleMakeResource entity)
@@ -172,64 +173,15 @@ namespace Project.WebAPI.Controllers
             }
         }
 
-        [HttpGet("GetFilterByName")]
+        [HttpGet("GetFiltered")]
 
-        public async Task<ActionResult<List<VehicleMakeWithModelsResources>>> GetFilterByName([FromQuery] string? Name = null)
-        {
-            try
-            {
-                var list = await _vehicleMakeService.GetFilterByName(Name);
-
-                if(list.Count == 0)
-                {
-                    return NotFound();
-                }
-
-                return Ok(_mapper.Map<List<VehicleMakeWithModelsResources>>(list));
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-           
-
-        }
-
-        [HttpGet("GetSortByName")]
-
-        public async Task <ActionResult<List<VehicleMakeResources>>> GetSortByName([FromQuery] string? Name = null, [FromQuery] bool isAscending = true)
+        public async Task<ActionResult<List<VehicleMakeResources>>> GetFiltered([FromQuery] QueryParameters parameters)
         {
 
             try
             {
-                var list = await _vehicleMakeService.GetSortByName(Name, isAscending);
 
-                if(list.Count == 0)
-                {
-                    return NotFound();
-                }
-
-                return Ok(_mapper.Map<List<VehicleMakeResources>>(list));
-                
-
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-
-        }
-
-        [HttpGet("PagingVehicleMake")]
-
-        public async Task<ActionResult<List<VehicleMakeResources>>> PagingVehiclaMakes([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 1000)
-        {
-
-            try
-            {
-                var list = await _vehicleMakeService.PagingVehicleMakes(pageNumber, pageSize);
+                var list = await _vehicleMakeService.GetFiltered(parameters);
 
                 if(list.Count == 0)
                 {
@@ -245,7 +197,10 @@ namespace Project.WebAPI.Controllers
                 return BadRequest(ex.Message);
             }
 
+
         }
+
+
 
 
     }

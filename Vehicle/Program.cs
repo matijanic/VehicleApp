@@ -8,6 +8,8 @@ using Project.WebAPI.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -20,6 +22,18 @@ builder.Services.AddDbContext<VehicleDbContext>(options =>
 {
     options.UseSqlServer(conn);
 
+});
+
+// CORS - Cors politika (policy) dozvole pristupa svim metodama, izvorima i zaglavljima pristup nasem serveru-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
 });
 
 
@@ -36,11 +50,7 @@ builder.Services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
 
 
 
-// CORS - Cors politika (policy) dozvole pristupa svim metodama, izvorima i zaglavljima pristup nasem serveru-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
-});
+
 
 var app = builder.Build();
 
@@ -53,6 +63,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseAuthorization();
 
