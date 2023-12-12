@@ -80,7 +80,7 @@ namespace Project.WebAPI.Controllers
         [HttpPost("AddVehicleModel")]
         [ValidateModel]
 
-        public async Task<ActionResult>CreateVehicleModel([FromBody] CreateVehicleModelResource input)
+        public async Task<ActionResult>CreateVehicleModel([FromBody] ChangeVehicleModelResource input)
         {
             try
             {
@@ -129,7 +129,7 @@ namespace Project.WebAPI.Controllers
         [HttpPut("UpdateVehicleModel")]
         [ValidateModel]
 
-        public async Task<ActionResult> UpdateVehicleModel(int id, [FromBody] UpdateVehicleModelResource input)
+        public async Task<ActionResult> UpdateVehicleModel(int id, [FromBody] ChangeVehicleModelResource input)
         {
             try
             {

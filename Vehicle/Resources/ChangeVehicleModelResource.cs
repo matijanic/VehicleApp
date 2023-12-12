@@ -2,7 +2,7 @@
 
 namespace Project.WebAPI.Resources
 {
-    public class UpdateVehicleModelResource
+    public class ChangeVehicleModelResource
     {
         [Required]
         [MinLength(2, ErrorMessage = "Name has to be minimum 2 characters")]

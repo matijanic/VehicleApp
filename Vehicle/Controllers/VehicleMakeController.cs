@@ -104,7 +104,7 @@ namespace Project.WebAPI.Controllers
         [HttpPost("AddVehicleMake")]
         [ValidateModel]
 
-        public async Task<ActionResult> CreateVehicleMakeAsync([FromBody] CreateVehicleMakeResource input)
+        public async Task<ActionResult> CreateVehicleMakeAsync([FromBody] ChangeVehicleMakeResource input)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace Project.WebAPI.Controllers
         [HttpPut("UpdateVehicleMake")]
         [ValidateModel]
 
-        public async Task<ActionResult> UpdateVehicleMake(int id, [FromBody] UpdateVehicleMakeResource entity)
+        public async Task<ActionResult> UpdateVehicleMake(int id, [FromBody] ChangeVehicleMakeResource entity)
         {
 
             try

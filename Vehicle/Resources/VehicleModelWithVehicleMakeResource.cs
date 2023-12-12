@@ -8,8 +8,6 @@ namespace Project.WebAPI.Resources
 
         public string Abrv { get; set; }
 
-
-
         public VehicleMakeResources VehicleMake { get; set; }
     }
 }

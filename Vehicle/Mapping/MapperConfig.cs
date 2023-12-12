@@ -11,16 +11,15 @@ namespace Project.WebAPI.Mapping
         {
             CreateMap<VehicleMakeEntity, VehicleMakeModel>().ReverseMap();
             CreateMap<VehicleMakeModel , VehicleMakeResources>().ReverseMap();
-            CreateMap<CreateVehicleMakeResource, VehicleMakeModel>().ReverseMap();
+            CreateMap<ChangeVehicleMakeResource, VehicleMakeModel>().ReverseMap();
             CreateMap<VehicleMakeModel,VehicleMakeWithModelsResources>().ReverseMap();
             CreateMap<VehicleMakeModel, VehicleMakeEntity>().ReverseMap();
-            CreateMap<UpdateVehicleMakeResource, VehicleMakeModel>().ReverseMap();
+           
             
             CreateMap<VehicleModelEntity, VehicleModelModel>().ReverseMap();
             CreateMap<VehicleModelModel, VehicleModelEntity>().ReverseMap();
             CreateMap<VehicleModelModel,VehicleModelResources>().ReverseMap();
-            CreateMap<CreateVehicleModelResource, VehicleModelModel>().ReverseMap();
-            CreateMap<UpdateVehicleModelResource, VehicleModelModel>().ReverseMap();
+            CreateMap<ChangeVehicleModelResource, VehicleModelModel>().ReverseMap();
             CreateMap<VehicleModelWithVehicleMakeResource,VehicleModelModel>().ReverseMap();
 
             
