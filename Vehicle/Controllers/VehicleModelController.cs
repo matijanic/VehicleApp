@@ -177,7 +177,7 @@ namespace Project.WebAPI.Controllers
             }
         }
 
-        [HttpGet("GetFiltered")]
+        [HttpGet("VehicleModel/GetFiltered")]
 
         public async Task<ActionResult<List<VehicleModelResources>>> GetFiltered([FromQuery] QueryParameters parameters)
         {

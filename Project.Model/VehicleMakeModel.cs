@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project.Model
 {
-    public class VehicleMakeModel : IVehicleMake
+    public class VehicleMakeModel : IVehicleMakeModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

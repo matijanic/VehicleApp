@@ -2,7 +2,7 @@
 
 namespace Project.Model
 {
-    public class VehicleModelModel : IVehicleModel
+    public class VehicleModelModel : IVehicleModelModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

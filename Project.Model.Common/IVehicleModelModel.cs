@@ -1,6 +1,6 @@
 ﻿namespace Project.Model.Common
 {
-    public interface IVehicleModel
+    public interface IVehicleModelModel
     {
         int Id { get; set; }
         string Name { get; set; }

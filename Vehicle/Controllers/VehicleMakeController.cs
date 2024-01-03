@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Project.Common;
 using Project.DAL;
@@ -8,7 +7,7 @@ using Project.Model.Common;
 using Project.Service.Common;
 using Project.WebAPI.Resources;
 using Project.WebAPI.Validation;
-using RouteAttribute = Microsoft.AspNetCore.Components.RouteAttribute;
+
 
 namespace Project.WebAPI.Controllers
 {
@@ -173,7 +172,7 @@ namespace Project.WebAPI.Controllers
             }
         }
 
-        [HttpGet("GetFiltered")]
+        [HttpGet("VehicleMake/GetFiltered")]
 
         public async Task<ActionResult<List<VehicleMakeResources>>> GetFiltered([FromQuery] QueryParameters parameters)
         {
