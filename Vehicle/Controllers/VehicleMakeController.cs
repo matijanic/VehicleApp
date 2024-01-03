@@ -26,28 +26,7 @@ namespace Project.WebAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet("VehicleMakes")]
-        public async Task<ActionResult<List<VehicleMakeResources>>> GetAllVMakesAsync()
-        {
-
-            try
-            {
-                var listAll = await _vehicleMakeService.GetAllVMakes();
-
-                if (listAll.Count == 0)
-                {
-                    NotFound();
-                }
-
-                var dataResources = _mapper.Map<List<VehicleMakeResources>>(listAll);
-                return Ok(dataResources);
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        
 
         [HttpGet("VehicleMake/{id}")]
 
@@ -150,27 +129,6 @@ namespace Project.WebAPI.Controllers
 
         }
 
-        [HttpGet("AllVehicleMakesWithModels")]
-        public async Task<ActionResult<List<VehicleMakeWithModelsResources>>> GetAllVMakesWithModelsAsync()
-        {
-
-            try
-            {
-
-                var listAllDomainModel = await _vehicleMakeService.GetAllWithModels();
-                
-
-                var dataResource = _mapper.Map<List<VehicleMakeWithModelsResources>>(listAllDomainModel); 
-                return Ok(dataResource);
-                
-                
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
 
         [HttpGet("VehicleMake/GetFiltered")]
 

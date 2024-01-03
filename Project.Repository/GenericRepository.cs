@@ -29,23 +29,7 @@ namespace Project.Repository
 
         }
 
-        public async Task<TEntity> Exists(int id)
-        {
-            var entity = await _db.Set<TEntity>().FindAsync(id);
-
-            if (entity == null)
-            {
-                return null;
-            }
-
-            return entity;
-        }
-
-        public  async Task<List<TEntity>> GetAllAsync()
-        {
-            var entity = await _db.Set<TEntity>().ToListAsync();
-            return entity;
-        }
+   
 
         public async Task<TEntity> GetByIdAsync(int id)
         {

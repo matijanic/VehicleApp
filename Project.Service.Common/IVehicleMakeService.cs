@@ -7,7 +7,6 @@ namespace Project.Service.Common
     public interface IVehicleMakeService
     {
 
-        Task<List<VehicleMakeModel>> GetAllVMakes();
 
         Task<VehicleMakeModel> GetVMakeById(int id);
 
@@ -16,10 +15,6 @@ namespace Project.Service.Common
         Task UpdateVMake(int id, VehicleMakeModel entity);
 
         Task <bool>DeleteVMake(int id);
-
-        Task<List<VehicleMakeModel>> GetAllWithModels();
-
-        Task <VehicleMakeModel> GetVMakeWithModelsById(int id);
 
         Task<List<VehicleMakeModel>> GetFiltered(QueryParameters parameters);
 

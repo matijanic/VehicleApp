@@ -44,18 +44,7 @@ namespace Project.Service
             
         }
 
-        public async Task<List<VehicleModelModel>> GetAllVModels()
-        {
-            var  listAll = await _unitOfWork.VehicleModels.GetAllAsync();
-            var newList = _mapper.Map<List<VehicleModelModel>>(listAll);
-            return newList;
-        }
-
-        public async Task<List<VehicleModelEntity>> GetAllWithVMakes()
-        {
-            var listaAllAndModels = await _unitOfWork.VehicleModels.GetAllWithVehicleMakes();
-            return listaAllAndModels;
-        }
+      
 
         public async Task<List<VehicleModelModel>> GetFiltered(QueryParameters parameters)
         {
@@ -73,19 +62,7 @@ namespace Project.Service
             return newEntity;
         }
 
-        public async Task<VehicleModelModel> GetVModelWithVMakeById(int id)
-        {
-            var entity = await _unitOfWork.VehicleModels.GetVehicleModelWithVehicleMakeByIdAsync(id);
-
-            if(entity == null)
-            {
-                return null;
-            }
-
-            var newEntity= _mapper.Map<VehicleModelModel>(entity);
-
-            return newEntity;
-        }
+       
 
 
         public async Task UpdateVModel(int id, VehicleModelModel input)

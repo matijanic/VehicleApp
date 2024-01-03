@@ -18,24 +18,7 @@ namespace Project.Repository
 
         }
 
-        public async Task<List<VehicleMakeEntity>> GetAllDetailsWithModelsAsync()
-        {
-            var allList = await _db.VehicleMakes
-                .Include("Models") 
-                .ToListAsync();
-
-            return allList;
-        }
-
-
-        public async Task<VehicleMakeEntity> GetVehicleMakeWithModelById(int Id)
-        {
-            var entity = await _db.VehicleMakes
-                .Include("Models")
-                .FirstOrDefaultAsync(a=> a.Id == Id);
-
-            return entity;
-        }
+       
 
         public async Task<List<VehicleMakeEntity>> GetFilteredAsync(QueryParameters parameters)
         {

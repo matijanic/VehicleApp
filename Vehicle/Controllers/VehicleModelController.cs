@@ -27,30 +27,7 @@ namespace Project.WebAPI.Controllers
 
         }
 
-        [HttpGet("VehicleModels")]
-        
-        public async Task <ActionResult<List<VehicleModelResources>>> GetAllVModelsAsync()
-        {
-            try
-            {
-                var listAll=await  _vehicleModelService.GetAllVModels();
-
-                if (listAll.Count == 0)
-                {
-                    return NotFound();
-                }
-
-               var newList =  _mapper.Map<List<VehicleModelResources>>(listAll);
-                
-                return Ok(newList);
-
-
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+       
 
 
         [HttpGet("VehicleModel/{id}")]
@@ -150,32 +127,7 @@ namespace Project.WebAPI.Controllers
             }
         }
 
-
-        //GetAllModelWithVehicleMale by id
-
-        [HttpGet("GetVehicleModelWithVehicleMake/{id}")]
-
-        public async Task<ActionResult> GetVehicleModelWithVehicleMakeById(int id)
-        {
-
-            try
-            {
-                var entity = await _vehicleModelService.GetVModelWithVMakeById(id);
-
-                if (entity == null)
-                {
-                    return NotFound();
-                }
-
-
-                return Ok(_mapper.Map<VehicleModelWithVehicleMakeResource>(entity));
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message);
-            }
-        }
+       
 
         [HttpGet("VehicleModel/GetFiltered")]
 

@@ -6,7 +6,7 @@ namespace Project.Service.Common
 {
     public interface IVehicleModelService
     {
-        Task<List<VehicleModelModel>> GetAllVModels();
+       
 
         Task<VehicleModelModel> GetVModelById(int id);
 
@@ -16,9 +16,7 @@ namespace Project.Service.Common
 
         Task<bool> DeleteVModel(int id);
 
-        Task<List<VehicleModelEntity>> GetAllWithVMakes();
-
-        Task<VehicleModelModel> GetVModelWithVMakeById(int id);
+       
 
         Task<List<VehicleModelModel>> GetFiltered(QueryParameters parameters);
     }
